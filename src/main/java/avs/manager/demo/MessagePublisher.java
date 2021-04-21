@@ -45,40 +45,39 @@ public class MessagePublisher extends RouteBuilder {
                 // generate a random message body
                 .bean(generatorBean, "getRandomMessage")
                 // get carrier id and set ordering key to carrier id
-//                .setHeader(GooglePubsubConstants.ORDERING_KEY,method(generatorBean,"getCarrier"))
+                .setHeader(GooglePubsubConstants.ORDERING_KEY,method(generatorBean,"getCarrier"))
                 //route the message to pub sub topic based on carrier id
-//                .choice()
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier1")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier1}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier2")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier2}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier3")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier3}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier4")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier4}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier5")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier5}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier6")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier6}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier7")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier7}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier8")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier8}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier9")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier9}}{{pub-sub-parameters}}")
-//                
-//                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier10")))
-//                .toD("{{pub-sub-prefix}}{{pub-sub-carrier10}}{{pub-sub-parameters}}")
+                .choice()
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier1")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier1}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier2")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier2}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier3")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier3}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier4")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier4}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier5")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier5}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier6")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier6}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier7")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier7}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier8")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier8}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier9")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier9}}{{pub-sub-parameters}}")
+                
+                .when(header(GooglePubsubConstants.ORDERING_KEY).isEqualTo(env.getProperty("carrier10")))
+                .toD("{{pub-sub-prefix}}{{pub-sub-carrier10}}{{pub-sub-parameters}}")
         .to("{{pub-sub-topic}}")
-//        .to("stream:out");
                 .end()
                 .to("log:Throughput Logger?level=INFO&groupInterval=10000&groupDelay=60000&groupActiveOnly=false");
 
