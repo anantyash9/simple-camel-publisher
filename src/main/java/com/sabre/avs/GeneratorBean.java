@@ -1,4 +1,4 @@
-package avs.manager.demo;
+package com.sabre.avs;
 
 import java.util.Random;
 
@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component;
 
 public class GeneratorBean {
 
-    private int counter;
-
+//message types
     @Value("${avs}")
     private String avs;
     @Value("${mas}")
@@ -22,6 +21,7 @@ public class GeneratorBean {
     @Value("${ava}")
     private String ava;
     
+//carrier types    
     @Value("${carrier1}")
     private String carrier1;
     @Value("${carrier2}")
@@ -42,15 +42,14 @@ public class GeneratorBean {
     private String carrier9;
     @Value("${carrier10}")
     private String carrier10;
-    
-
-    
+  
     private String[] messages;
     private String[] carriers;
     private String[] randomMessages=new String[1000];;
     
+    // Generate a bank of messages to be published to pubsub topics
     @PostConstruct  
-    public void postConstruct()
+    private void postConstruct()
     {	
     	 messages= new String[] {avs,mas,ava};
     	 carriers = new String[] {carrier1,carrier2,carrier3,carrier4,carrier5,carrier6,carrier7,carrier8,carrier9,carrier10};
@@ -68,18 +67,17 @@ public class GeneratorBean {
     		 
     		 
     	 }
-    	 System.out.println(randomMessages[333]);
     }
+    // returns a random message from message bank (array)
     public String getRandomMessage() {
     	Random random = new Random();
     	int index = random.nextInt(randomMessages.length);
     	return randomMessages[index] ;
     }
     
-
+    // utility function for extracting the carrier code from message body
     public String getCarrier(String body) {
     	String lines[] = body.split("\\r?\\n");
         return lines[3].substring(0,2);
     }
-
 }
